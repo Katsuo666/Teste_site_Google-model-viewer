@@ -13,24 +13,25 @@
         padding: 0;
         width: 100vw;
         height: 100vh;
-        background-color: #f0f3f6;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f6f9;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         display: flex;
         justify-content: center;
         align-items: center;
+        overflow: hidden;
       }
 
-      /* Container do visualizador 3D */
+      /* Container principal do visualizador */
       model-viewer {
         width: 90%;
-        height: 80%;
+        height: 85%;
         background-color: #ffffff;
-        border-radius: 16px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        border-radius: 20px;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
         --poster-color: transparent;
       }
 
-      /* Estilização do botão personalizado de Realidade Aumentada */
+      /* Botão Flutuante de Realidade Aumentada */
       #ar-button {
         background-color: #007bff;
         background-image: url('https://fonts.gstatic.com/s/i/googlematerialicons/view_in_ar/v20/24px.svg');
@@ -47,53 +48,55 @@
         bottom: 24px;
         left: 50%;
         transform: translateX(-50%);
-        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
         cursor: pointer;
         transition: background-color 0.2s, transform 0.2s;
       }
 
       #ar-button:active {
         background-color: #0056b3;
-        transform: translateX(-50%) scale(0.98);
+        transform: translateX(-50%) scale(0.95);
       }
 
-      /* Instruções de como interagir com o modelo */
-      .instructions {
+      /* Header Dinâmico */
+      .header-container {
         position: absolute;
-        top: 20px;
+        top: 24px;
         text-align: center;
         width: 100%;
         pointer-events: none;
+        z-index: 10;
       }
 
-      .instructions h1 {
-        font-size: 1.2rem;
-        color: #333;
-        margin: 0 0 5px 0;
+      .header-container h1 {
+        font-size: 1.3rem;
+        color: #1a1a1a;
+        margin: 0 0 4px 0;
+        text-transform: capitalize;
       }
 
-      .instructions p {
-        font-size: 0.9rem;
-        color: #777;
+      .header-container p {
+        font-size: 0.85rem;
+        color: #6c757d;
         margin: 0;
       }
     </style>
   </head>
   <body>
 
-    <div class="instructions">
-      <h1>Bolsos da minha Educadora</h1>
-      <p>Roda e faz zoom no modelo. Usa o botão abaixo no telemóvel para testar em AR!</p>
+    <div class="header-container">
+      <h1 id="model-title">A carregar...</h1>
+      <p>Roda com o dedo e clica no botão abaixo para veres em AR no teu espaço!</p>
     </div>
 
     <model-viewer 
-      src="./assets/02_Bolsos.glb" 
+      id="dynamic-viewer"
       ar 
       ar-modes="webxr scene-viewer quick-look" 
       camera-controls 
       tone-mapping="neutral" 
       shadow-intensity="1.5"
-      shadow-softness="1"
+      shadow-softness="0.8"
       autoplay>
       
       <button slot="ar-button" id="ar-button">
@@ -102,5 +105,28 @@
 
     </model-viewer>
 
+    <script>
+      // 1. Obtém os parâmetros da URL (ex: ?model=02_Bolsos)
+      const urlParams = new URLSearchParams(window.location.search);
+      const modelParam = urlParams.get('model');
+
+      // 2. Define o modelo padrão caso o link não tenha nenhum parâmetro
+      const defaultModel = '02_Bolsos';
+      const activeModelName = modelParam ? modelParam : defaultModel;
+
+      // 3. Atualiza o atributo src do <model-viewer>
+      const viewer = document.getElementById('dynamic-viewer');
+      viewer.setAttribute('src', `./assets/${activeModelName}.glb`);
+
+      // 4. Atualiza o título no ecrã dinamicamente para o utilizador
+      const titleElement = document.getElementById('model-title');
+      
+      // Formata o nome do ficheiro para ficar bonito (ex: "02_Bolsos" vira "Bolsos")
+      const friendlyName = activeModelName
+        .replace(/^\d+_/, '') // Remove os números do início (02_)
+        .replace(/_/g, ' ');  // Substitui os underscores por espaços
+
+      titleElement.textContent = friendlyName;
+    </script>
   </body>
 </html>
