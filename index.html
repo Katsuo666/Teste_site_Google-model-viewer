@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="pt-PT">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8" />
+    <title>Teste Google Model-Viewer - Bolsos</title>
+
+    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        width: 100vw;
+        height: 100vh;
+        background-color: #f0f3f6;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      /* Container do visualizador 3D */
+      model-viewer {
+        width: 90%;
+        height: 80%;
+        background-color: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        --poster-color: transparent;
+      }
+
+      /* Estilização do botão personalizado de Realidade Aumentada */
+      #ar-button {
+        background-color: #007bff;
+        background-image: url('https://fonts.gstatic.com/s/i/googlematerialicons/view_in_ar/v20/24px.svg');
+        background-repeat: no-repeat;
+        background-position: 12px 50%;
+        background-size: 20px;
+        color: white;
+        font-weight: 600;
+        border-radius: 30px;
+        border: none;
+        padding: 12px 20px 12px 40px;
+        font-size: 14px;
+        position: absolute;
+        bottom: 24px;
+        left: 50%;
+        transform: translateX(-50%);
+        box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+        cursor: pointer;
+        transition: background-color 0.2s, transform 0.2s;
+      }
+
+      #ar-button:active {
+        background-color: #0056b3;
+        transform: translateX(-50%) scale(0.98);
+      }
+
+      /* Instruções de como interagir com o modelo */
+      .instructions {
+        position: absolute;
+        top: 20px;
+        text-align: center;
+        width: 100%;
+        pointer-events: none;
+      }
+
+      .instructions h1 {
+        font-size: 1.2rem;
+        color: #333;
+        margin: 0 0 5px 0;
+      }
+
+      .instructions p {
+        font-size: 0.9rem;
+        color: #777;
+        margin: 0;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="instructions">
+      <h1>Bolsos da minha Educadora</h1>
+      <p>Roda e faz zoom no modelo. Usa o botão abaixo no telemóvel para testar em AR!</p>
+    </div>
+
+    <model-viewer 
+      src="./assets/02_Bolsos.glb" 
+      ar 
+      ar-modes="webxr scene-viewer quick-look" 
+      camera-controls 
+      tone-mapping="neutral" 
+      shadow-intensity="1.5"
+      shadow-softness="1"
+      autoplay>
+      
+      <button slot="ar-button" id="ar-button">
+        Ver no meu espaço
+      </button>
+
+    </model-viewer>
+
+  </body>
+</html>
