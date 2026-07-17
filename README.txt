@@ -1,17 +1,49 @@
-Para gerar os códigos QR para teste:
+========================================================================
+      PROJETO TESTE: Google <model-viewer> (3D + AR Nativa)
+========================================================================
 
-Usar qualquer gerador de códigos QR online gratuito (como o qr-code-generator.com).
+1. DESCRIÇÃO GERAL
+------------------
+Este projeto demonstra a utilização do componente Web oficial da Google 
+(<model-viewer>) para renderização 3D interativa de produtos com transição 
+direta para Realidade Aumentada Nativa no sistema operativo móvel (Scene Viewer 
+em Android e AR Quick Look em iOS).
 
-No gerador de QR, escolher a opção "URL" e introduz o link com o parâmetro do modelo que específico para abrir:
+2. ESTRUTURA DE FICHEIROS
+-------------------------
+/ (Raiz do Projeto)
+│
+├── index.html               # Ficheiro HTML com o elemento <model-viewer>
+├── README.txt               # Documentação técnica do projeto
+└── assets/
+    ├── 02_Bolsos.glb        # Modelo 3D principal (Android / Web)
+    └── 02_Bolsos.usdz       # (Opcional) Ficheiro otimizado para iOS Quick Look
 
-Para testar o modelo dos bolsos: https://teste-site-google-model-viewer.vercel.app/?model=02_Bolsos
+3. TECNOLOGIAS E DEPENDÊNCIAS
+-----------------------------
+- HTML5 / CSS3 / JavaScript
+- Google <model-viewer> (Web Component importado via CDN unpkg/skypack)
+- AR Nativa: WebXR Device API, Android Scene Viewer, Apple AR Quick Look
 
-Se no futuro for adicionado o modelo 03_Bolsos.glb, basta gerar outro código QR a apontar para: https://teste-site-google-model-viewer.vercel.app/?model=03_Bolsos
+4. FUNCIONALIDADES E ATRIBUTOS PRINCIPAIS
+-----------------------------------------
+- 'ar': Ativa a funcionalidade e o botão de Realidade Aumentada.
+- 'ar-modes="webxr scene-viewer quick-look"': Define a ordem de prioridade dos motores 
+  de AR para máxima compatibilidade entre Android e iOS.
+- 'camera-controls': Permite ao utilizador rodar (360°), inclinar e fazer zoom no 
+  modelo 3D através de gestos no ecrã antes de entrar na câmara.
+- 'shadow-intensity="1"': Adiciona sombras em tempo real para aumentar o realismo 
+  na projeção de superfície.
+- 'auto-rotate': (Opcional) Ativa a rotação automática do modelo no visualizador.
 
-Faz o teste prático:
+5. COMO EXECUTAR
+----------------
+1. Colocar os ficheiros num servidor Web com suporte a HTTPS (obrigatório para AR).
+2. Abrir o ficheiro 'index.html' no browser de qualquer dispositivo móvel ou de trabalho.
 
-Aponta a câmara do teu telemóvel para o código QR gerado.
-
-Clica no link que aparece no ecrã do telemóvel.
-
-O site vai abrir, ler o parâmetro 02_Bolsos, carregar o modelo 3D correspondente e, quando clicar em "Ver no meu espaço", abrirá a câmara para colocar o modelo no chão ou numa mesa com as animações nativas dele a correr.
+6. COMO TESTAR
+--------------
+1. Ao abrir o site, o modelo 3D pode ser inspecionado interativamente em ecrã plano.
+2. Clica no botão "Ver no seu espaço" (ou no ícone de AR no canto inferior direito).
+3. Aponta a câmara do telemóvel para uma superfície plana (mesa ou chão).
+4. O bolso será projetado em tamanho real na superfície, permitindo andar à volta dele no espaço físico.
